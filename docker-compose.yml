@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+ opencv:
+   build: .
+   volumes:
+     - .:/opencv
+   ports:
+     - "8000:8000"
+   command: python index.py
