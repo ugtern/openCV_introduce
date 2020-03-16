@@ -35,4 +35,4 @@ class OpenCVTest:
 
 
 test = OpenCVTest(False)
-test
+test.to_gray()
