@@ -49,6 +49,8 @@ class CvTests:
         cv2.imshow("resized proportionals", resized)
         cv2.waitKey(0)
 
+        return resized
+
     def rotate_image(self, degrees, scale):
         # rotate image
 
@@ -88,8 +90,8 @@ class CvTests:
         cv2.waitKey(0)
 
 
-test = CvTests('jp.jpg')
-test.get_color()
+# test = CvTests('jp.jpg')
+# test.get_color()
 # test.show_image()
 # test.show_images_part()
 # test.resize_image((200, 200))
@@ -98,4 +100,4 @@ test.get_color()
 # test.rotate_image_with_imutils(-45)
 # test.rotate_image_imutils_not_clipped(-75)
 # test.make_blur()
-test.draw_on_image()
+# test.draw_on_image()

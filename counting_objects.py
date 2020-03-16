@@ -1,17 +1,22 @@
 import imutils
 import cv2
 import argparse
+import index
 
 
 class OpenCVTest:
 
-    def __init__(self):
+    def __init__(self, resize):
 
         ap = argparse.ArgumentParser()
         ap.add_argument("-i", "--image", required=True, help="path to input image")
         args = vars(ap.parse_args())
 
-        self.image = cv2.imread(args["image"])
+        if resize:
+            image = index.CvTests(args["image"])
+            self.image = image.resize_with_imutils(400.0)
+        else:
+            self.image = cv2.imread(args["image"])
 
     def show_image(self):
 
@@ -34,15 +39,56 @@ class OpenCVTest:
 
         cv2.imshow("edged", edged)
         cv2.waitKey(0)
+        return edged
 
     def thresholding(self):
-        thres = cv2.threshold(self.turn_image_to_gray(False), 225, 255, cv2.THRESH_BINARY_INV)[1]
-        cv2.imshow("Thresh", thres)
+        thresh = cv2.threshold(self.turn_image_to_gray(False), 225, 255, cv2.THRESH_BINARY_INV)[1]
+        cv2.imshow("Thresh", thresh)
+        cv2.waitKey(0)
+        return thresh
+        
+    def find_contours(self):
+        cnts = cv2.findContours(self.edge_datection().copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        cnts = imutils.grab_contours(cnts)
+        output = self.image.copy()
+
+        for c in cnts:
+            cv2.drawContours(output, [c], -1, (240, 0, 159), 3)
+
+        text = "founded {} objects".format(len(cnts))
+        cv2.putText(output, text, (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (240, 0, 159), 2)
+
+        cv2.imshow("Countours", output)
+        cv2.waitKey(0)
+
+    def erosion(self):
+
+        mask = self.thresholding().copy()
+        mask = cv2.erode(mask, None, iterations=5)
+        cv2.imshow("Eroded", mask)
+        cv2.waitKey(0)
+
+    def dilation(self):
+
+        mask = self.thresholding().copy()
+        mask = cv2.dilate(mask, None, iterations=5)
+        cv2.imshow("Eroded", mask)
+        cv2.waitKey(0)
+
+    def masking(self):
+
+        mask = self.thresholding().copy()
+        output = cv2.bitwise_and(self.image, self.image, mask=mask)
+        cv2.imshow("Output", output)
         cv2.waitKey(0)
 
 
-test = OpenCVTest()
+test = OpenCVTest(False)
 # test.show_image()
 # test.turn_image_to_gray(True)
 # test.edge_datection()
-test.thresholding()
+# test.thresholding()
+# test.find_contours()
+# test.erosion()
+# test.dilation()
+# test.masking()
