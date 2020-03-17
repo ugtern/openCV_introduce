@@ -2,6 +2,7 @@ import numpy as np
 import argparse
 import imutils
 import cv2
+import index
 
 
 class OpenCVTest:
@@ -26,8 +27,8 @@ class OpenCVTest:
         # lower = np.array([60, 250, 90])
         # upper = np.array([70, 255, 100])
 
-        lower = np.array([0, 0, 0])
-        upper = np.array([15, 15, 15])
+        lower = np.array([100, 110, 140])
+        upper = np.array([145, 145, 180])
 
         shapeMask = cv2.inRange(self.image, lower, upper)
 
@@ -42,9 +43,9 @@ class OpenCVTest:
 
         for contour in contours:
             cv2.drawContours(self.image, [contour], -1, (0, 255, 0), 2)
-            cv2.imshow('contours', self.image)
-            cv2.waitKey(0)
+        cv2.imshow('contours', self.image)
+        cv2.waitKey(0)
 
 
-test = OpenCVTest(False)
+test = OpenCVTest(True)
 test.get_contours()
