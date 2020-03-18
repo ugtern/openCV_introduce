@@ -27,8 +27,11 @@ class OpenCVTest:
         # lower = np.array([60, 250, 90])
         # upper = np.array([70, 255, 100])
 
-        lower = np.array([100, 110, 140])
-        upper = np.array([145, 145, 180])
+        # lower = np.array([100, 110, 140])
+        # upper = np.array([145, 145, 180])
+
+        lower = np.array([0, 0, 0])
+        upper = np.array([15, 15, 15])
 
         shapeMask = cv2.inRange(self.image, lower, upper)
 
