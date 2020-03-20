@@ -1,22 +1,14 @@
 import cv2
 import argparse
 import numpy as np
-import index
+from cv_methods import main
 
 
 class OpenCVTest:
 
     def __init__(self, resize):
 
-        ap = argparse.ArgumentParser()
-        ap.add_argument("-i", "--image", required=True, help="path to input image")
-        args = vars(ap.parse_args())
-
-        if resize:
-            image = index.CvTests(args["image"])
-            self.image = image.resize_with_imutils(400.0)
-        else:
-            self.image = cv2.imread(args["image"])
+        self.image = main.MainCVClass(resize).image
 
         self.boundaries = [
             ([5, 5, 100], [80, 80, 200]),
