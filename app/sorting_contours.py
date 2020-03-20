@@ -2,14 +2,14 @@ import numpy as np
 import argparse
 import imutils
 import cv2
-from cv_methods import main
+from cv_methods.preload import MainCVClass
 
 
 class OpenCVTest:
 
     def __init__(self, resize):
 
-        self.image = main.MainCVClass(resize).image
+        self.image = MainCVClass(resize).image
         self.accum_edged = np.zeros(self.image.shape[:2], dtype="uint8")
 
         for chan in cv2.split(self.image):

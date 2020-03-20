@@ -1,14 +1,14 @@
 import cv2
 import argparse
 import numpy as np
-from cv_methods import main
+from cv_methods.preload import MainCVClass
 
 
 class OpenCVTest:
 
     def __init__(self, resize):
 
-        self.image = main.MainCVClass(resize).image
+        self.image = MainCVClass(resize).image
 
         self.boundaries = [
             ([5, 5, 100], [80, 80, 200]),

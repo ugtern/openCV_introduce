@@ -1,13 +1,13 @@
 import imutils
 import cv2
 import argparse
-from cv_methods import main
+from cv_methods.preload import MainCVClass
 
 
 class OpenCVTest():
 
     def __init__(self, resize):
-        self.image = main.MainCVClass(resize).image
+        self.image = MainCVClass(resize).image
 
     def show_image(self):
 

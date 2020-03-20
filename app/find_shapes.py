@@ -2,14 +2,14 @@ import numpy as np
 import argparse
 import imutils
 import cv2
-from cv_methods import main
+from cv_methods.preload import MainCVClass
 
 
 class OpenCVTest:
 
     def __init__(self, resize):
 
-        self.image = main.MainCVClass(resize).image
+        self.image = MainCVClass(resize).image
 
         cv2.imshow('image', self.image)
         cv2.waitKey(0)
