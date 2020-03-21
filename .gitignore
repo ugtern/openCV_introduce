@@ -1,2 +1,13 @@
 # Project exclude paths
 /venv/
+/00009.jpg
+/00009.xml
+/00056.png
+/00062.jpg
+/00062.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/openCV_introduce.iml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/vcs.xml
+/.idea/workspace.xml
