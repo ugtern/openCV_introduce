@@ -1,4 +1,5 @@
 from cv_methods.shape_detector import ShapeDetector
+from cv_methods.colorlabeler import ColorLabeler
 from cv_methods.preload import MainCVClass
 import argparse
 import imutils
@@ -21,9 +22,10 @@ class DetectShapes():
         # convert the resized image to grayscale, blur it slightly,
         # and threshold it
 
-        gray = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
-        blurred = cv2.GaussianBlur(gray, (5, 5), 0)
-        thresh = cv2.threshold(blurred, 60, 255, cv2.THRESH_BINARY)[1]
+        blurred = cv2.GaussianBlur(resized, (5, 5), 0)
+        gray = cv2.cvtColor(blurred, cv2.COLOR_BGR2GRAY)
+        lab = cv2.cvtColor(blurred, cv2.COLOR_BGR2LAB)
+        thresh = cv2.threshold(gray, 60, 255, cv2.THRESH_BINARY)[1]
 
         cv2.imshow('thresh', thresh)
         cv2.waitKey(0)
@@ -36,6 +38,7 @@ class DetectShapes():
 
         contours = imutils.grab_contours(contours)
         shape_detector = ShapeDetector()
+        color_detector = ColorLabeler()
 
         for contour in contours:
 
@@ -46,6 +49,7 @@ class DetectShapes():
                 cX = int((M['m10'] / M['m00']) *ratio)
                 cY = int((M['m01'] / M['m00']) *ratio)
                 shape = shape_detector.detect(contour)
+                color = color_detector.label(lab, contour)
 
             except:
                 continue
@@ -54,8 +58,9 @@ class DetectShapes():
                 contour = contour.astype('float')
                 contour *= ratio
                 contour = contour.astype('int')
+                text = "{} {}".format(color, shape)
                 cv2.drawContours(self.image, [contour], -1, (0, 255, 0), 2)
-                cv2.putText(self.image, shape, (cX, cY), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                cv2.putText(self.image, text, (cX, cY), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
 
         cv2.imshow('complite', self.image)
         cv2.waitKey(0)
