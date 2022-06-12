@@ -18,7 +18,7 @@ DIGITS_LOOKUP = {
     (1, 1, 1, 1, 0, 1, 1): 9
 }
 
-image = cv2.imread('ttf.jpeg')
+image = cv2.imread('example.jpg')
 
 image = imutils.resize(image, height=500)
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
